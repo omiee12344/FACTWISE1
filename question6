@@ -1,0 +1,38 @@
+#include <stdio.h>  //question6
+
+int max(int a, int b) {
+    return a > b ? a : b;
+}
+
+int simpleRob(int* nums, int numsSize) {
+    int prev = 0, curr = 0;
+    for (int i = 0; i < numsSize; ++i) {
+        int temp = curr;
+        curr = max(prev + nums[i], curr);
+        prev = temp;
+    }
+    return curr;
+}
+
+int rob(int* nums, int numsSize) {
+    if (numsSize == 1) {
+        return nums[0];
+    }
+
+   // 2 cases consired 
+    return max(simpleRob(nums, numsSize - 1), simpleRob(nums + 1, numsSize - 1));
+}
+
+int main() {
+    int nums1[] = {2, 3, 2};
+    printf("%d\n", rob(nums1, sizeof(nums1) / sizeof(nums1[0])));  // Output: 3
+
+    int nums2[] = {1, 2, 3, 1};
+    printf("%d\n", rob(nums2, sizeof(nums2) / sizeof(nums2[0])));  // Output: 4
+
+    int nums3[] = {1, 2, 3};
+    printf("%d\n", rob(nums3, sizeof(nums3) / sizeof(nums3[0])));  // Output: 3
+
+    return 0;
+}
+
